@@ -1,0 +1,66 @@
+# oc-tnf
+
+OpenShift CLI plugin for Two Node with Fencing (TNF) cluster utilities.
+
+## Install
+
+### Via Krew (custom index)
+
+```bash
+kubectl krew index add openshift https://github.com/openshift/krew-index.git
+kubectl krew install openshift/tnf
+```
+
+### From source
+
+```bash
+git clone https://github.com/openshift/oc-tnf.git
+cd oc-tnf
+make build
+make install
+```
+
+## Commands
+
+### validate-fencing
+
+Validates fencing on a TNF (DualReplica) cluster by power-cycling both nodes sequentially via STONITH and verifying full recovery.
+
+**WARNING: This is a DISRUPTIVE operation.** Nodes will be forcibly powered off via STONITH and must recover automatically. Only run this against a TNF cluster you intend to test.
+
+**What it checks:**
+
+1. Pre-flight: STONITH configured and enabled, both nodes online in Pacemaker, corosync/pacemaker/pcsd daemons active, etcd has 2 healthy voter members
+2. Fences each node sequentially via `pcs stonith fence`
+3. Waits for fenced node to go NotReady, then recover to Ready
+4. Verifies Pacemaker rejoin and etcd quorum restoration
+5. Warns if fencing takes >60s (possible BMC graceful shutdown)
+
+**Usage:**
+
+```bash
+# Using default kubeconfig and SSH agent
+oc tnf validate-fencing
+
+# With explicit SSH key
+oc tnf validate-fencing --ssh-key ~/.ssh/id_rsa
+
+# With explicit kubeconfig
+oc tnf validate-fencing --kubeconfig /path/to/kubeconfig --ssh-key ~/.ssh/id_rsa
+```
+
+**Prerequisites:**
+
+- A deployed DualReplica (TNF) cluster — rejects non-TNF clusters with a clear error
+- SSH access to both control-plane nodes as `core` user
+- Cluster-admin kubeconfig
+
+## Development
+
+```bash
+make build          # Build for current platform
+make test           # Run unit tests
+make golangci-lint  # Run linter
+make cross-build    # Build for all platforms
+make release-dry-run # Test GoReleaser without publishing
+```
