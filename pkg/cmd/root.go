@@ -44,7 +44,13 @@ func newCompletionCmd() *cobra.Command {
 			root := cmd.Root()
 			switch args[0] {
 			case "bash":
-				if err := root.GenBashCompletionV2(cmd.OutOrStdout(), true); err != nil {
+				// Use a stable name for the completion function so it works
+				// regardless of how the binary is invoked (oc-tnf, kubectl-tnf)
+				savedUse := root.Use
+				root.Use = "oc-tnf"
+				err := root.GenBashCompletionV2(cmd.OutOrStdout(), true)
+				root.Use = savedUse
+				if err != nil {
 					return err
 				}
 				fmt.Fprintln(cmd.OutOrStdout())
