@@ -3,7 +3,7 @@ kind: Plugin
 metadata:
   name: tnf
 spec:
-  version: v0.0.5
+  version: v0.0.8
   homepage: https://github.com/openshift/oc-tnf
   shortDescription: Validate STONITH fencing on TNF clusters
   description: |
@@ -23,55 +23,27 @@ spec:
         matchLabels:
           os: linux
           arch: amd64
-      uri: https://github.com/openshift/oc-tnf/releases/download/v0.0.5/oc-tnf_linux_amd64.tar.gz
-      sha256: "84dc6dc3161ac8be6741616dbeb490ed5b3394422a4e85db37cf58de143720c7"
+      uri: https://github.com/openshift/oc-tnf/releases/download/v0.0.8/oc-tnf_linux_amd64.tar.gz
+      sha256: "81f2346eac3c07e57fdef083c96a43d98e49f0655ce0ad6a0889c7f274b59602"
       bin: oc-tnf
-      files:
-        - from: oc-tnf
-          to: oc-tnf
-        - from: oc_complete-tnf
-          to: oc_complete-tnf
-        - from: kubectl_complete-tnf
-          to: kubectl_complete-tnf
     - selector:
         matchLabels:
           os: linux
           arch: arm64
-      uri: https://github.com/openshift/oc-tnf/releases/download/v0.0.5/oc-tnf_linux_arm64.tar.gz
-      sha256: "5b35502bfaec9bb3620a53caa1ec22787937baf27067bd49d5fd858d8aa36603"
+      uri: https://github.com/openshift/oc-tnf/releases/download/v0.0.8/oc-tnf_linux_arm64.tar.gz
+      sha256: "37489ad752fddfe6daa6667c9adef6cc74e7733eeeb33eeec1fbbbcc4bee1d40"
       bin: oc-tnf
-      files:
-        - from: oc-tnf
-          to: oc-tnf
-        - from: oc_complete-tnf
-          to: oc_complete-tnf
-        - from: kubectl_complete-tnf
-          to: kubectl_complete-tnf
     - selector:
         matchLabels:
           os: darwin
           arch: amd64
-      uri: https://github.com/openshift/oc-tnf/releases/download/v0.0.5/oc-tnf_darwin_amd64.tar.gz
-      sha256: "1519f94b62abff9537ef3bd8cc9a2378bec3ca7de6df0274ee9e279e8369cdde"
+      uri: https://github.com/openshift/oc-tnf/releases/download/v0.0.8/oc-tnf_darwin_amd64.tar.gz
+      sha256: "79f3277579f9dda981af1b9b92d79f51597845f50385f5f3d8c39880aa292e2d"
       bin: oc-tnf
-      files:
-        - from: oc-tnf
-          to: oc-tnf
-        - from: oc_complete-tnf
-          to: oc_complete-tnf
-        - from: kubectl_complete-tnf
-          to: kubectl_complete-tnf
     - selector:
         matchLabels:
           os: darwin
           arch: arm64
-      uri: https://github.com/openshift/oc-tnf/releases/download/v0.0.5/oc-tnf_darwin_arm64.tar.gz
-      sha256: "8301a4248a6e3dab82966404b9406b6f87aa48e150491473fd1f4ad17d926665"
+      uri: https://github.com/openshift/oc-tnf/releases/download/v0.0.8/oc-tnf_darwin_arm64.tar.gz
+      sha256: "cc73c682865cd0f2aee8acc30484d52620241d34e35db4fd28555cccf4bcce1f"
       bin: oc-tnf
-      files:
-        - from: oc-tnf
-          to: oc-tnf
-        - from: oc_complete-tnf
-          to: oc_complete-tnf
-        - from: kubectl_complete-tnf
-          to: kubectl_complete-tnf
