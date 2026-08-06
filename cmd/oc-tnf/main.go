@@ -33,9 +33,7 @@ func run() int {
 		ErrOut: os.Stderr,
 	}
 
-	bin := filepath.Base(os.Args[0])
-	root := cmd.NewCmdTNF(streams, bin)
-	root.Use = bin
+	root := cmd.NewCmdTNF(streams, filepath.Base(os.Args[0]))
 	root.Version = fmt.Sprintf("%s (%s)", version, date)
 	if err := root.ExecuteContext(ctx); err != nil {
 		if ctx.Err() != nil {

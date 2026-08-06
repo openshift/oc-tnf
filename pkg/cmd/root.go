@@ -19,7 +19,7 @@ func NewCmdTNF(streams genericclioptions.IOStreams, bin string) *cobra.Command {
 	var debug bool
 
 	cmd := &cobra.Command{
-		Use:           "oc-tnf",
+		Use:           bin,
 		Short:         "OpenShift Two Node with Fencing utilities",
 		Long:          "Provides utilities for managing and validating Two Node with Fencing (TNF) clusters.",
 		SilenceUsage:  true,
