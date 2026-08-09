@@ -33,7 +33,7 @@ type ValidateFencingOptions struct {
 	genericclioptions.IOStreams
 }
 
-func NewCmdValidateFencing(streams genericclioptions.IOStreams) *cobra.Command {
+func NewCmdValidateFencing(streams genericclioptions.IOStreams, invocation string) *cobra.Command {
 	o := &ValidateFencingOptions{
 		configFlags: genericclioptions.NewConfigFlags(true),
 		IOStreams:   streams,
@@ -52,14 +52,14 @@ WARNING: This is a DISRUPTIVE operation — nodes will be forcibly powered off
 via STONITH and must recover automatically.
 
 Requires SSH access to both nodes as user "core" and a cluster-admin kubeconfig.`,
-		Example: `  # Validate fencing using default kubeconfig and SSH agent
-  oc tnf validate-fencing
+		Example: fmt.Sprintf(`  # Validate fencing using default kubeconfig and SSH agent
+  %[1]s validate-fencing
 
   # Validate with explicit SSH key
-  oc tnf validate-fencing --ssh-key ~/.ssh/id_rsa
+  %[1]s validate-fencing --ssh-key ~/.ssh/id_rsa
 
   # Validate with explicit kubeconfig
-  oc tnf validate-fencing --kubeconfig /path/to/kubeconfig --ssh-key ~/.ssh/id_rsa`,
+  %[1]s validate-fencing --kubeconfig /path/to/kubeconfig --ssh-key ~/.ssh/id_rsa`, invocation),
 		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := o.Complete(); err != nil {

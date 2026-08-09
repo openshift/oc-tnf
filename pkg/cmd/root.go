@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -10,13 +11,17 @@ import (
 	"github.com/openshift/oc-tnf/pkg/cmd/validatefencing"
 )
 
-func NewCmdTNF(streams genericclioptions.IOStreams) *cobra.Command {
+func NewCmdTNF(streams genericclioptions.IOStreams, bin string) *cobra.Command {
+	if bin == "" {
+		bin = "oc-tnf"
+	}
+	invocation := strings.Replace(bin, "-", " ", 1)
 	var debug bool
 
 	cmd := &cobra.Command{
-		Use:           "oc-tnf",
+		Use:           bin,
 		Short:         "OpenShift Two Node with Fencing utilities",
-		Long:          "oc-tnf provides utilities for managing and validating Two Node with Fencing (TNF) clusters.",
+		Long:          "Provides utilities for managing and validating Two Node with Fencing (TNF) clusters.",
 		SilenceUsage:  true,
 		SilenceErrors: true,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
@@ -27,7 +32,7 @@ func NewCmdTNF(streams genericclioptions.IOStreams) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().BoolVar(&debug, "debug", false, "Enable debug logging")
-	cmd.AddCommand(validatefencing.NewCmdValidateFencing(streams))
+	cmd.AddCommand(validatefencing.NewCmdValidateFencing(streams, invocation))
 	cmd.AddCommand(newCompletionCmd())
 
 	return cmd
